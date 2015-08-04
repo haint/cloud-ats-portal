@@ -185,10 +185,10 @@ define(['fk/module'], function(module) {
         })
       },
 
-      getCustomKeywords : function(tenant,space,projectID,callback) {
+      getCustomKeywords : function(projectID,callback) {
         var request = {
           method: 'GET',
-          url: 'http://localhost:9000/api/v1/getCustomKeywords/'+  tenant + '/' + space + '/' +projectID,
+          url: 'http://localhost:9000/api/v1/getCustomKeywords/' +projectID,
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken')
           }
@@ -246,10 +246,10 @@ define(['fk/module'], function(module) {
         })
       },
 
-      removeCustomKeyword : function(projectID,customKeywordId,callback) {
+      removeCustomKeyword : function(customKeywordId,callback) {
         var request = {
           method: 'DELETE',
-          url: 'http://localhost:9000/api/v1/removeCustomKeyword/'+ projectID+'/'+ customKeywordId,
+          url: 'http://localhost:9000/api/v1/removeCustomKeyword/'+ customKeywordId,
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken')
           }
@@ -257,7 +257,7 @@ define(['fk/module'], function(module) {
 
         $http(request).success(function(data,status) {
           callback(data,status);
-        }).error(function(status) {
+        }).error(function(data,status) {
           callback(data,status);
         })
       }

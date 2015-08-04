@@ -802,6 +802,13 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
                 timeout: 1000
               });
               $scope.customKeyClone = null;
+              $scope.cases = [
+                {
+                    "name": "Custom Keyword",
+                    "steps": [],
+                    "info":""
+                  }
+                ];
           });
         } else {
           alert("Action NOT NULL");
@@ -810,29 +817,22 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
         
     }
 
-    var getCustomKeywords = function(tenant,space,projectID) {
-        keywordService.getCustomKeywords(tenant,space,projectID,function(data,status) {
+    var getCustomKeywords = function(projectID) {
+        keywordService.getCustomKeywords(projectID,function(data,status) {
             $scope.listCustomKeywords = data;
         });
     }
 
     $scope.getListCustomKeywords = function() {
-        $rootScope.$watch('context', function(value){
-            var tenant = $rootScope.context.tenant._id;
-            var space = $rootScope.context.space;
-            if (space === undefined) {
-                space = {_id: null};
-            }
-            getCustomKeywords(tenant,space._id,$scope.project.projectId);
-        });
+        getCustomKeywords($scope.project.projectId);
     }
-    var removeCustomKey = function(projectID,customKeywordId,index) {
-        keywordService.removeCustomKeyword(projectID,customKeywordId,function(data,status) {
+    var removeCustomKey = function(customKeywordId,index) {
+        keywordService.removeCustomKeyword(customKeywordId,function(data,status) {
             $scope.listCustomKeywords.splice(index, 1); 
         });
     }
     $scope.removeCustomKeyword = function(customKeywordId,index) {
-        removeCustomKey($scope.project.projectId,customKeywordId,index);
+        removeCustomKey(customKeywordId,index);
     }
 
     $scope.newCaseName = function(value, attributes) {

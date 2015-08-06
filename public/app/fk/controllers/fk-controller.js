@@ -726,7 +726,13 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
     }
 
     $scope.editCustom = function(status,custom) {
-        console.log(custom);
+        $scope.cases = [
+        {
+            "name": "",
+            "steps": [],
+            "info":""
+          }
+        ];
         $scope.cases[0]._id = custom._id;
         $scope.cases[0].name = custom.name;
         $scope.cases[0].steps = custom.actions;
@@ -774,11 +780,13 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
     }
 
     $scope.editNameCase = function(newName) {
-      $scope.added=false;
-      $scope.statusAdd=false;
-      $scope.done=true;
-      $scope.customKeyClone = angular.copy($scope.cases[0]);
-      $scope.customKeyClone.name = newName;
+      if($scope.cases[0].steps.length != 0) {
+        $scope.added=false;
+        $scope.statusAdd=false;
+        $scope.done=true;
+        $scope.customKeyClone = angular.copy($scope.cases[0]);
+        $scope.customKeyClone.name = newName;
+      }
     }
 
     $scope.addCustomKeyword = function() {
@@ -802,13 +810,6 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
                 timeout: 1000
               });
               $scope.customKeyClone = null;
-              $scope.cases = [
-                {
-                    "name": "Custom Keyword",
-                    "steps": [],
-                    "info":""
-                  }
-                ];
           });
         } else {
           alert("Action NOT NULL");

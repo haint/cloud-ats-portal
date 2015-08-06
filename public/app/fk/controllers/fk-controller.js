@@ -245,8 +245,8 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
 
     });
     var getData = function() {
-      console.log($scope.project.projectId);
-      var projectId = $scope.project.projectId;
+      console.log($scope.project._id);
+      var projectId = $scope.project._id;
         keywordService.getListTestCase(projectId,function(data) {
             $scope.lists = data;
         });

@@ -726,7 +726,13 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
     }
 
     $scope.editCustom = function(status,custom) {
-        console.log(custom);
+        $scope.cases = [
+        {
+            "name": "",
+            "steps": [],
+            "info":""
+          }
+        ];
         $scope.cases[0]._id = custom._id;
         $scope.cases[0].name = custom.name;
         $scope.cases[0].steps = custom.actions;
@@ -774,11 +780,13 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
     }
 
     $scope.editNameCase = function(newName) {
-      $scope.added=false;
-      $scope.statusAdd=false;
-      $scope.done=true;
-      $scope.customKeyClone = angular.copy($scope.cases[0]);
-      $scope.customKeyClone.name = newName;
+      if($scope.cases[0].steps.length != 0) {
+        $scope.added=false;
+        $scope.statusAdd=false;
+        $scope.done=true;
+        $scope.customKeyClone = angular.copy($scope.cases[0]);
+        $scope.customKeyClone.name = newName;
+      }
     }
 
     $scope.addCustomKeyword = function() {
@@ -810,29 +818,22 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
         
     }
 
-    var getCustomKeywords = function(tenant,space,projectID) {
-        keywordService.getCustomKeywords(tenant,space,projectID,function(data,status) {
+    var getCustomKeywords = function(projectID) {
+        keywordService.getCustomKeywords(projectID,function(data,status) {
             $scope.listCustomKeywords = data;
         });
     }
 
     $scope.getListCustomKeywords = function() {
-        $rootScope.$watch('context', function(value){
-            var tenant = $rootScope.context.tenant._id;
-            var space = $rootScope.context.space;
-            if (space === undefined) {
-                space = {_id: null};
-            }
-            getCustomKeywords(tenant,space._id,$scope.project.projectId);
-        });
+        getCustomKeywords($scope.project.projectId);
     }
-    var removeCustomKey = function(projectID,customKeywordId,index) {
-        keywordService.removeCustomKeyword(projectID,customKeywordId,function(data,status) {
+    var removeCustomKey = function(customKeywordId,index) {
+        keywordService.removeCustomKeyword(customKeywordId,function(data,status) {
             $scope.listCustomKeywords.splice(index, 1); 
         });
     }
     $scope.removeCustomKeyword = function(customKeywordId,index) {
-        removeCustomKey($scope.project.projectId,customKeywordId,index);
+        removeCustomKey(customKeywordId,index);
     }
 
     $scope.newCaseName = function(value, attributes) {

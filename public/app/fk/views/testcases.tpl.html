@@ -1,43 +1,40 @@
 <div class="testcase-tab">
 	<div class="testList" ng-if="!customKeyword">
-		<div class="border-div">
          <div class="row actionMenu">
          	<div class="col-md-3">
-        	<form class="header-search pull-left ng-pristine ng-valid" search-autocomplete="">
-				    <input id="search-fld" type="text" name="param" placeholder="Search Test Case" class="ui-autocomplete-input" autocomplete="off">
-				    <button type="submit">
-				      <i class="fa fa-search"></i>
-				    </button>
-			</form>
+        	<section class="smart-form">
+	                <label class="input"> <i class="icon-append fa fa-search"></i>
+	                  <input type="text" name="Search" ng-model="Search" placeholder="Search" id="Search" minlength="3"></label>
+	        </section>
             </div>
+            <span class="col-md-2 count-testcase"><label>200 Test Cases</label></span>
 			<span ng-if="lists.length < 2" class="col-md-2 count-testcase"><label>{{lists.length}} Test Case</label></span>
 			<span ng-if="lists.length > 1" class="col-md-2 count-testcase"><label>{{lists.length}} Test Cases</label></span>
         	<div class="dropdown testcase-group col-md-3">
-			  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose a Test Case Group
+			  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select a Test Case Group
 			  <span class="caret"></span></button>
 			  <ul class="dropdown-menu">
-			    <li><a href="">Login</a></li>
-			    <li><a href="">Logout</a></li>
-			    <li><a href="">Register</a></li>
+			    <li><a href="">Test Case Group 1</a></li>
+			    <li><a href="">Test Case Group 2</a></li>
+			    <li><a href="">Test Case Group 3</a></li>
 			  </ul>
 			</div>
-			<span class="col-md-4 pull-right btn-action-list">
+			<span class="col-md-4 text-right">
 				<a ng-click="customKey(customKeyword); getListCustomKeywords();resetCase('Custom Keyword');customKeywordStatus()" class="btn btn-default">Custom Keyword</a>
 				<a data-toggle="modal" data-target="#editCase" class="btn btn-primary" ng-click="resetCase('Test Case 1'); newTestCaseStatus()">New Test Case</a>
 			</span>
-</div>
         </div>
         <!-- list test case -->
-		<div class="list-testcase">
-        	<div  class="col-md-3" ng-repeat="case in lists track by $index| orderBy:'case.created_date'" data-toggle="modal" data-target="#editCase" ng-click="editCustom(editCustomKeyword,case);editCaseStatus($index);">
+		<div class="list-testcase row">
+        	<div  class="col-md-3 col-sm-4 col-xs-6" ng-repeat="i in [1,2,3,4,5,6,7,8,9] track by $index" data-toggle="modal" data-target="#editCase" ng-click="editCustom(editCustomKeyword,case);editCaseStatus($index);">
             	<div class="tc-itemBlock"  data-toggle="modal" data-target="#myModal">
                 	<div class="row">
                         <div class="tc-attributes col-md-12">
-                            <div class="tc-id"># {{case._id.substring(0,8)}}</div>
+                            <div class="tc-id"># {{case._id.substring(0,8)}}12</div>
                             <div class="tc-groupName">Group Name</div>
                         </div>
                         <div class="tc-name col-md-12">
-                           {{case.name}}
+                           {{case.name}}This is Test case name with a long long name which is described as overview of Test Case Functions.
                         </div>
                     </div>
                 </div>
@@ -53,10 +50,10 @@
 
 						    <ul id="myTab" class="nav nav-tabs pull-right">
 						      <li class="active">
-						        <a href="#t1" data-toggle="tab"><span class="hidden-mobile hidden-tablet">BASIC INFO</span></a>
+						        <a href="#t1" data-toggle="tab"><span >BASIC INFO</span></a>
 						      </li>
 						      <li>
-						        <a href="#t2" data-toggle="tab"><span class="hidden-mobile hidden-tablet">TEST KEYWORD</span></a>
+						        <a href="#t2" data-toggle="tab"><span >TEST KEYWORD</span></a>
 						      </li>
 						    </ul>
 						 </header>
@@ -66,7 +63,7 @@
 					        <div smart-include="app/fk/views/new-basic-info.tpl.html" ></div>
 					    </div>
 					    <div class="tab-pane fade in no-padding-bottom tab-pane-full" id="t2">
-					        <keywords></keywords>
+					        <keywords></keywords><div smart-include="app/fk/directives/keywords.tpl.html"></div>
 					    </div>
 		            </div>
 		            <div class="modal-footer group-listbutton-keyword">

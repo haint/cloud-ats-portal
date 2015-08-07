@@ -19,7 +19,7 @@ define(['performance/module'], function (module) {
 			createPerformanceTestWizard : function (data, callback) {
 				var request = {
 					method: 'POST',
-					url: 'http://localhost:9000/api/v1/performance/createWizard',
+					url: 'http://localhost:8001/api/v1/performance/createWizard',
 					headers: {
 						'X-AUTH-TOKEN': $cookies.get('authToken'),
             'X-SPACE': $cookies.get('space')
@@ -42,7 +42,7 @@ define(['performance/module'], function (module) {
 
 				var request = {
 					method: 'POST',
-					url: 'http://localhost:9000/api/v1/performance/uploadFile?project_name='+project_name,
+					url: 'http://localhost:8001/api/v1/performance/uploadFile?project_name='+project_name,
 					headers: {
 						'X-AUTH-TOKEN': $cookies.get('authToken'),
             'X-SPACE': $cookies.get('space'),
@@ -60,7 +60,7 @@ define(['performance/module'], function (module) {
 
 				var request = {
 					method: "PUT",
-					url: 'http://localhost:9000/api/v1/performance/updateScript',
+					url: 'http://localhost:8001/api/v1/performance/updateScript',
 					headers: {
 						'X-AUTH-TOKEN': $cookies.get('authToken'),
             'X-SPACE': $cookies.get('space')

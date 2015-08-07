@@ -12,11 +12,8 @@ define(['fk/module', 'lodash'], function(module, _) {
       link: function($scope, element, attributes) {
 
         $scope.update = false;
+
         $scope.showMe = function() {
-          if($scope.list == null) {
-            $scope.list = [];
-            $scope.list.length == 0;
-          }
           return $scope.list.length == 0;
         }
 

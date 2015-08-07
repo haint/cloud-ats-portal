@@ -200,6 +200,7 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
     $scope.disable = false;
     $scope.lists = [];
     $scope.performance = false;
+    $scope.customKeyword = false;
     $scope.not_change = true;
     $scope.openProject = function (project) {
       $('[data-toggle="popover"]').each(function () {
@@ -208,7 +209,6 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
       $scope.project_overview = false;
       $scope.project = project;
       $scope.performance = false;
-      getData();
     }
 
     $scope.clickNewTestSuiteButton = function ($event) {
@@ -233,6 +233,15 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
     $scope.closeDetailPage = function () {
       $scope.project_overview = true;
     };
+
+    $scope.customKey = function (status) {
+        if(!status) {
+            $scope.customKeyword = true;
+        } else {
+             $scope.customKeyword = false;
+        }
+        console.log($scope.customKeyword);
+    };
 	
     keywordService.getListFunctionalProject(function (response) {
       $scope.functionalPros = response;
@@ -245,12 +254,11 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
 
     });
     var getData = function() {
-      console.log($scope.project._id);
-      var projectId = $scope.project._id;
-        keywordService.getListTestCase(projectId,function(data) {
+        keywordService.getListTestCase(function(data) {
             $scope.lists = data;
         });
     };
+    getData();
     $scope.removeSuite = function (suite) {
       keywordService.removeTestSuite(suite._id, $scope.project.projectId, function(data){
         if (data != null) {
@@ -287,7 +295,6 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
           $scope.project.projectId = data._id;
           $scope.project.totalCases = data.totalTestCases;
           $scope.functionalPros.push($scope.project);
-          getData();
         });
       } else {
 
@@ -589,6 +596,41 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
       });
     };
 
+    /*test case*/
+
+    $scope.infoBasic = "";
+    $scope.newName = "";
+    $scope.nameCustomKeyword = "input text";
+
+    $scope.customKeyword = false;
+    $scope.editCustomKeyword =false;
+    $scope.customKey = function (status) {
+        if(!status) {
+            $scope.customKeyword = true;
+        } else {
+             $scope.customKeyword = false;
+        }
+    };
+
+    $scope.setInfo = function(infoBasic) {
+        $scope.cases[0].name = $scope.newName;
+        $scope.cases[0].info = infoBasic;
+        /*keywordService.newTestCase($scope.cases,function(data,status) {
+            $rootScope.$watch('data', function(){
+                getData();
+            });
+        });*/
+        $.smallBox({
+        title: "Success",
+        content: "<i class='fa fa-clock-o'></i> <i>1 seconds ago...</i>",
+        color: "#5F895F",
+        iconSmall: "fa fa-check bounce animated",
+        timeout: 2000
+      });
+    };
+
+    /*----------*/
+
     var resetModalSize = function () {
       $('#createScript .modal-dialog .modal-content').css("width", '');
       $('#createScript .modal-dialog .modal-content').css("margin-left", '');
@@ -645,6 +687,7 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
 
     /*Nambv2*/
 
+$scope.infoBasic = "";
     $scope.editCaseName = "";
     $scope.nameCustomKeyword = "";
 
@@ -652,7 +695,10 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
     $scope.addCustom = false;
     $scope.updateCustom = false;
     $scope.updateCase = false;
+
     $scope.customKeyword = false;
+    $scope.editCustomKeyword =false;
+    $scope.showQuickCreateCustom = false;
 
     $scope.newTestCaseStatus = function() {
       $scope.addCase = true;
@@ -660,16 +706,8 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
       $scope.updateCustom = false;
       $scope.updateCase = false;
       $scope.caseName = "";
-      $scope.statusAdd=true;
-      $scope.added=false;
-      $scope.done=false;
-    }
-
-    $scope.clickAddCustomQuick = function() {
-      $scope.added=true;
-    }
-    $scope.clickCancelAddCustom = function() {
-      $scope.added=false
+      $scope.infoBasic = "";
+      $scope.showQuickCreateCustom = true;
     }
 
     $scope.customKeywordStatus = function() {
@@ -679,12 +717,11 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
       $scope.updateCase = false;
     }
 
-    $scope.editCustomKeyStatus = function(index) {
+    $scope.editCustomKeyStatus = function() {
       $scope.addCase = false;
       $scope.addCustom = false;
       $scope.updateCustom = true;
       $scope.updateCase = false;
-      $scope.indexCustomEdit = index;
     }
 
     $scope.editCaseStatus = function(index) {
@@ -692,28 +729,15 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
       $scope.addCustom = false;
       $scope.updateCustom = false;
       $scope.updateCase = true;
-      $scope.statusAdd=true;
-      $scope.added=false;
-      $scope.done=false;
       $scope.indexCaseEdit = index;
+      $scope.showQuickCreateCustom = false;
     }
 
     $scope.createNewTestCase = function() {
-        var projectId = $scope.project.projectId;
-        var checkCaseExist = false;
-        keywordService.newTestCase(projectId,$scope.cases[0],function(data,status) {
-          _.forEach($scope.lists,function(item) {
-              if(_.isEqual(item.name.trim(),$scope.cases[0].name)) {
-                checkCaseExist = true;
-              }
-          });
-
-          if(!checkCaseExist) {
-            $scope.lists.push(data[0]);
-          } else {
-            $scope.lists.splice($scope.lists.length - 1 , 1);
-            $scope.lists.push(data[0]);
-          }
+        keywordService.newTestCase($scope.cases,function(data,status) {
+            $rootScope.$watch('data', function(){
+                getData();
+            });
         });
     }
 
@@ -726,13 +750,7 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
     }
 
     $scope.editCustom = function(status,custom) {
-        $scope.cases = [
-        {
-            "name": "",
-            "steps": [],
-            "info":""
-          }
-        ];
+        console.log(custom);
         $scope.cases[0]._id = custom._id;
         $scope.cases[0].name = custom.name;
         $scope.cases[0].steps = custom.actions;
@@ -745,29 +763,32 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
 
     $scope.updateCustomKeyword = function() {
         var projectId = $scope.project.projectId;
-        keywordService.updateCustomKeyword($scope.cases[0],projectId,function(data,status) {
+        keywordService.updateCustomKeyword($scope.cases,projectId,function(data,status) {
             $rootScope.$watch('data', function() {
-                $scope.listCustomKeywords.splice($scope.indexCustomEdit, 1);
-                $scope.listCustomKeywords.push(data[0]);
+                $rootScope.$watch('context', function(value){
+                        var tenant = $rootScope.context.tenant._id;
+                        var space = $rootScope.context.space;
+                        if (space === undefined) {
+                            space = {_id: null};
+                        }
+                        getCustomKeywords(tenant,space._id,$scope.project.projectId);
+                });
             });
         });
     }
 
     $scope.updateTestCase = function() {
-      keywordService.updateCase($scope.cases[0],function(data,status) {
+      console.log($scope.cases);
+      keywordService.updateCase($scope.cases,function(data,status) {
         $rootScope.$watch('data', function() {
-          //getData();
-          $scope.lists.splice($scope.indexCaseEdit, 1);
-          $scope.lists.push(data[0]);
+          getData();
         });
-      $
       });
     }
 
     $scope.removeCase = function() {
       var caseId = $scope.cases[0]._id;
-      var projectId = $scope.project.projectId;
-      keywordService.removeCase(projectId,caseId,function(data,status) {
+      keywordService.removeCase(caseId,function(data,status) {
         $scope.lists.splice($scope.indexCaseEdit, 1);
         $.smallBox({
           title: "Delete Test Case Success",
@@ -780,60 +801,50 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
     }
 
     $scope.editNameCase = function(newName) {
-      if($scope.cases[0].steps.length != 0) {
-        $scope.added=false;
-        $scope.statusAdd=false;
-        $scope.done=true;
-        $scope.customKeyClone = angular.copy($scope.cases[0]);
-        $scope.customKeyClone.name = newName;
-      }
+      $scope.cases[0].name = newName;
     }
 
     $scope.addCustomKeyword = function() {
+        console.log("here");
         var projectId = $scope.project.projectId;
-        var customKeywordValue = null;
-        if($scope.customKeyClone != null) {
-          customKeywordValue = $scope.customKeyClone;
-        } else {
-          customKeywordValue = $scope.cases[0];
-        }
-        if(customKeywordValue.steps.length != 0) {
-          keywordService.addCustomKeyword(customKeywordValue,projectId,function(data,status) {
-              if($scope.addCustom) {
-                $scope.listCustomKeywords.push(data[0]);
-              }
-              $.smallBox({
-                title: "Success",
-                content: "<i class='fa fa-clock-o'></i> <i>1 seconds ago...</i>",
-                color: "#5F895F",
-                iconSmall: "fa fa-check bounce animated",
-                timeout: 1000
-              });
-              $scope.customKeyClone = null;
-          });
-        } else {
-          alert("Action NOT NULL");
-        }
-        
-        
+        keywordService.addCustomKeyword($scope.cases,projectId,function(data,status) {
+            $rootScope.$watch('data', function() {
+                $rootScope.$watch('context', function(value){
+                        var tenant = $rootScope.context.tenant._id;
+                        var space = $rootScope.context.space;
+                        if (space === undefined) {
+                            space = {_id: null};
+                        }
+                        getCustomKeywords(tenant,space._id,$scope.project.projectId);
+                        //$scope.listCustomKeywords.push($scope.cases[0]);
+                });
+            });
+        });
     }
 
-    var getCustomKeywords = function(projectID) {
-        keywordService.getCustomKeywords(projectID,function(data,status) {
+    var getCustomKeywords = function(tenant,space,projectID) {
+        keywordService.getCustomKeywords(tenant,space,projectID,function(data,status) {
             $scope.listCustomKeywords = data;
         });
     }
 
     $scope.getListCustomKeywords = function() {
-        getCustomKeywords($scope.project.projectId);
+        $rootScope.$watch('context', function(value){
+            var tenant = $rootScope.context.tenant._id;
+            var space = $rootScope.context.space;
+            if (space === undefined) {
+                space = {_id: null};
+            }
+            getCustomKeywords(tenant,space._id,$scope.project.projectId);
+        });
     }
-    var removeCustomKey = function(customKeywordId,index) {
-        keywordService.removeCustomKeyword(customKeywordId,function(data,status) {
+    var removeCustomKey = function(projectID,customKeywordName,index) {
+        keywordService.removeCustomKeyword(projectID,customKeywordName,function(data,status) {
             $scope.listCustomKeywords.splice(index, 1); 
         });
     }
-    $scope.removeCustomKeyword = function(customKeywordId,index) {
-        removeCustomKey(customKeywordId,index);
+    $scope.removeCustomKeyword = function(customKeywordName,index) {
+        removeCustomKey($scope.project.projectId,customKeywordName,index);
     }
 
     $scope.newCaseName = function(value, attributes) {
@@ -842,15 +853,10 @@ define(['fk/module', 'lodash', 'morris', 'notification'], function(module, _) {
         }
     }
 
-    $scope.setInfo = function() {
-        var projectId = $scope.project.projectId;
-        keywordService.newTestCase(projectId,$scope.cases[0],function(data,status) {
-          $rootScope.$watch('data', function(){
-                //getData();
-                $scope.lists.push(data[0]);
-          });
-        
-        });
+    $scope.setInfo = function(info) {
+        $scope.cases[0].info = info;
+        $scope.infoBasic = info;
+        console.log(info);
         $.smallBox({
           title: "Set Name Test Case Success",
           content: "<i class='fa fa-clock-o'></i> <i>1 seconds ago...</i>",

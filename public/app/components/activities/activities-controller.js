@@ -1,35 +1,37 @@
-define(['layout/module'], function(app) {
-  "use strict";
+define(['app'], function(app){
+    "use strict";
 
-  return app.registerController('ActivitiesCtrl', ['$scope', '$log', '$filter', 'activityService', ActivitiesCtrl]);
+	    return app.controller("ActivitiesCtrl", ActivitiesCtrl);
 
-  function ActivitiesCtrl($scope, $log, $filter, activityService) {
-    $scope.activeTab = 'default';
-    $scope.currentActivityItems = [];
+			function ActivitiesCtrl($scope, $log, activityService){
 
-    //Getting different type of activities
-    activityService.get(function(data) {
+				$scope.activeTab = 'default';
+				$scope.currentActivityItems = [];
+				$scope.template_url = "app/components/activities/tabs/tab-" + $scope.activeTab + ".html";
+				// Getting different type of activites
+				activityService.get(function(data){
 
-      $scope.activities = data.activities;
+					$scope.activities = data.activities;
+					
+				});
 
-    });
 
-    $scope.isActive = function(tab) {
-      return $scope.activeTab === tab;
-    };
+				$scope.isActive = function(tab){
+					return $scope.activeTab === tab;
+				};
 
-    $scope.setTab = function(activityType) {
-      $scope.activeTab = activityType;
+				$scope.setTab = function(activityType){
+					$scope.activeTab = activityType;
+					$scope.template_url = "app/components/activities/tabs/tab-" +activityType + ".html";
 
-      activityService.getbytype(activityType, function(data) {
-        $scope.currentActivityItems = data.data;
-      });
+					activityService.getbytype(activityType, function(data) {
 
-      $filter('filter')($scope.activities.types, function(value, index) {
-        if(value.name === activityType) {
-          value.length = 0;
-        }
-      });
-    }
-  }
-})
+						$scope.currentActivityItems = data.data;
+
+					});
+
+				};
+
+			}
+
+});

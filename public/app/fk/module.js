@@ -29,22 +29,22 @@ define([
                 'fk/directives/cases',
                 'fk/directives/data-driven-selector',
                 'services/keyword-service',
-                'modules/ui/directives/smart-html-popover',
+                'modules/ui/directives/smartHtmlPopover',
                 'modules/forms/common',
-                'modules/forms/directives/validate/smart-validate-form',
-                'modules/forms/directives/wizard/smart-wizard',
-                'modules/forms/directives/input/smart-xeditable',
-                'modules/widgets/directives/widget-grid',
-                'modules/widgets/directives/jarvis-widget',
-                'modules/forms/directives/input/smart-select2',
-                'modules/forms/directives/input/smart-uislider',
+                'modules/forms/directives/validate/smartValidateForm',
+                'modules/forms/directives/wizard/smartWizard',
+                'modules/forms/directives/input/smartXeditable',
+                'modules/widgets/directives/widgetGrid',
+                'modules/widgets/directives/jarvisWidget',
+                'modules/forms/directives/input/smartSelect2',
+                'modules/forms/directives/input/smartUislider',
                 'fk/directives/ui-if'
               ])
             }
           }
         },
         data: {
-          title: 'Keyworks Framework',
+          title: 'Keywords Framework',
           requireLogin: true
         }
       }).state('app.provider', {
@@ -60,10 +60,9 @@ define([
                 'fk/directives/data-provider-table',
                 'fk/directives/tick-box',
                 'fk/directives/new-data-provider-form',
-               
-                'modules/widgets/directives/jarvis-widget',
-                'modules/forms/directives/input/smart-select2',
-                'modules/forms/directives/input/smart-xeditable'
+                'modules/widgets/directives/jarvisWidget',
+                'modules/forms/directives/input/smartSelect2',
+                'modules/forms/directives/input/smartXeditable'
               ])
             }
           }
@@ -91,15 +90,15 @@ define([
                 'fk/directives/remove-sampler-button',
                 'fk/directives/data-driven-selector',
                 'services/keyword-service',
-                'modules/ui/directives/smart-html-popover',
+                'modules/ui/directives/smartHtmlPopover',
                 'modules/forms/common',
-                'modules/forms/directives/validate/smart-validate-form',
-                'modules/forms/directives/wizard/smart-wizard',
-                'modules/forms/directives/input/smart-xeditable',
-                'modules/widgets/directives/widget-grid',
-                'modules/widgets/directives/jarvis-widget',
-                'modules/forms/directives/input/smart-select2',
-                'modules/forms/directives/input/smart-uislider',
+                'modules/forms/directives/validate/smartValidateForm',
+                'modules/forms/directives/wizard/smartWizard',
+                'modules/forms/directives/input/smartXeditable',
+                'modules/widgets/directives/widgetGrid',
+                'modules/widgets/directives/jarvisWidget',
+                'modules/forms/directives/input/smartSelect2',
+                'modules/forms/directives/input/smartUislider',
                 'fk/directives/ui-if'
               ])
             }
@@ -107,6 +106,44 @@ define([
         },
         data: {
           title: 'Project List',
+          requireLogin: true
+        }
+      }).state('app.projectdetail', {
+        url: '/projectdetail',
+        views: {
+          "content@app": {
+            controller: 'ProjectsCtrl',
+            templateUrl: 'app/fk/views/project-list.html',
+            resolve: {
+              deps: $couchPotatoProvider.resolveDependencies([
+                  
+                'fk/controllers/fk-controller',
+                'fk/directives/keywords',
+                'fk/directives/close-popover',
+                'fk/directives/add-icon',
+                'fk/directives/keyword-params',
+                'fk/directives/steps',
+                'fk/directives/suites',
+                'fk/directives/cases',
+                'fk/directives/remove-sampler-button',
+                'fk/directives/data-driven-selector',
+                'services/keyword-service',
+                'modules/ui/directives/smartHtmlPopover',
+                'modules/forms/common',
+                'modules/forms/directives/validate/smartValidateForm',
+                'modules/forms/directives/wizard/smartWizard',
+                'modules/forms/directives/input/smartXeditable',
+                'modules/widgets/directives/widgetGrid',
+                'modules/widgets/directives/jarvisWidget',
+                'modules/forms/directives/input/smartSelect2',
+                'modules/forms/directives/input/smartUislider',
+                'fk/directives/ui-if'
+              ])
+            }
+          }
+        },
+        data: {
+          title: 'Project Detail',
           requireLogin: true
         }
       }).state('app.report', {
@@ -121,7 +158,7 @@ define([
           }
         },
         data: {
-          title: 'Keyworks Framework',
+          title: 'Project Report',
           requireLogin: true
         }
       });

@@ -5,53 +5,41 @@ define([
 ], function(ng, couchPotato) {
   "use strict";
 
-  var module = ng.module('app.layout', ['ui.router']);
+    var module = ng.module('app.layout', ['ui.router']);
 
-  couchPotato.configureApp(module);
 
-  module.config(['$stateProvider', '$couchPotatoProvider', '$urlRouterProvider',
+    couchPotato.configureApp(module);
+
+    module.config(['$stateProvider', '$couchPotatoProvider', '$urlRouterProvider', 
     function ($stateProvider, $couchPotatoProvider, $urlRouterProvider) {
-    $stateProvider
-      .state('app', {
-        abstract: true,
-        views: {
-          'root': {
-            templateUrl: 'app/layout/layout.tpl.html',
-            resolve: {
-              deps: $couchPotatoProvider.resolveDependencies([
-                'auth/directives/login-info',
-                'auth/controllers/logout-controller',
 
-                'layout/actions/minify-menu',
-                'layout/actions/toggle-menu',
-                'layout/actions/full-screen',
-                'layout/actions/reset-widgets',
 
-                'layout/directives/list-space',
-                'layout/directives/smart-menu',
-                'layout/directives/state-breadcrumbs',
-                'layout/directives/search-autocomplete',
-
-                'components/activities/activities-controller',
-                'components/activities/activities-service',
-                'components/activities/activities-dropdown-toggle-directive',
-                'components/shortcut/toggle-shortcut',
-
-                'components/language/Language',
-                'components/language/language-selector',
-                'components/language/language-controller',
-              ])
-            }
-          }
-        }
-      });
-    $urlRouterProvider.otherwise(function($injector, $location) {
+        $stateProvider
+            .state('app', {
+                abstract: true,
+                views: {
+                    root: {
+                        templateUrl: 'app/layout/layout.tpl.html',
+                        resolve: {
+                            deps: $couchPotatoProvider.resolveDependencies([
+                                'layout/directives/list-space',
+                                'auth/directives/loginInfo',
+                                'modules/graphs/directives/inline/sparklineContainer',
+                                'components/inbox/directives/unreadMessagesCount',
+                                'components/chat/api/ChatApi',
+                                'components/chat/directives/asideChatWidget'
+                            ])
+                        }
+                    }
+                }
+            });
+        $urlRouterProvider.otherwise(function($injector, $location) {
       var $state = $injector.get("$state");
       $state.go('app.dashboard');
     });
-  }]);
+    }]);
 
-  module.run(['$couchPotato', function($couchPotato) {
+    module.run(['$couchPotato', function($couchPotato) {
     module.lazy = $couchPotato;
   }]);
 

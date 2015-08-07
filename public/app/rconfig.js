@@ -1,18 +1,19 @@
 var require = {
-	waitSeconds: 0,
-	paths: {
-    	'jquery': '../plugin/jquery/jquery',
-        'jquery-ui': '../plugin/jquery-ui/jquery-ui',
-        
-        'bootstrap': '../plugin/bootstrap/dist/js/bootstrap',
-        
-        'angular': '../plugin/angular/angular',
-        'angular-cookies': '../plugin/angular-cookies/angular-cookies',
-        'angular-resource': '../plugin/angular-resource/angular-resource',
-        'angular-sanitize': '../plugin/angular-sanitize/angular-sanitize',
-        'angular-animate': '../plugin/angular-animate/angular-animate',
-        'angular-loading-bar': '../plugin/angular-loading-bar/build/loading-bar',
-        'angular-dragdrop': '../plugin/angular-dragdrop/src/angular-dragdrop',
+    waitSeconds: 0,
+    paths: {
+
+        'jquery': '../plugin/jquery/jquery.min',
+        'jquery-ui': '../plugin/jquery-ui/jquery-ui.min',
+
+        'bootstrap': '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min',
+
+        'angular': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min',
+        'angular-cookies': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-cookies.min',
+        'angular-resource': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-resource.min',
+        'angular-sanitize': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.min',
+        'angular-animate': '//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.min',
+        'angular-loading-bar': '../plugin/angular-loading-bar/build/loading-bar.min',
+        'angular-dragdrop': '../plugin/angular-dragdrop/src/angular-dragdrop.min',
 
         'domReady': '../plugin/requirejs-domready/domReady',
 
@@ -117,15 +118,15 @@ var require = {
 
         'magnific-popup': '../plugin/magnific-popup/dist/jquery.magnific-popup',
 
-        'fullcalendar': '../smartadmin-plugin/fullcalendar/jquery.fullcalendar',
-        'smartwidgets': '../smartadmin-plugin/smartwidgets/jarvis.widget',
-        'notification': '../smartadmin-plugin/notification/SmartNotification',
+        'fullcalendar': '../smartadmin-plugin/fullcalendar/jquery.fullcalendar.min',
+        'smartwidgets': '../smartadmin-plugin/smartwidgets/jarvis.widget.min',
+        'notification': '../smartadmin-plugin/notification/SmartNotification.min',
 
         // app js file includes
-        'appConfig': 'app.config',
         'modules-includes': 'includes'
-	},
-    shim : {
+
+    },
+    shim: {
         'angular': {'exports': 'angular', deps: ['jquery']},
 
         'angular-animate': { deps: ['angular'] },
@@ -134,10 +135,9 @@ var require = {
         'angular-sanitize': { deps: ['angular'] },
         'angular-bootstrap': { deps: ['angular'] },
         'angular-ui-router': { deps: ['angular'] },
-        'angular-google-maps': { deps: ['angular'] },
+        'angular-google-maps': { deps: ['angular']},
         'angular-loading-bar': {deps: ['angular']},
         'angular-dragdrop': {deps: ['angular', 'jquery-ui']},
-
         'angular-couch-potato': { deps: ['angular'] },
 
         'socket.io': { deps: ['angular'] },
@@ -223,6 +223,7 @@ var require = {
         'notification': { deps: ['jquery']},
 
         'smartwidgets': { deps: ['jquery-ui']}
+
     },
     priority: [
         'jquery',

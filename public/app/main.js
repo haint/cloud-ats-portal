@@ -1,21 +1,25 @@
-//
+// Defer AngularJS bootstrap
 window.name = "NG_DEFER_BOOTSTRAP!";
 
 define([
-  'require',
-  'jquery',
-  'angular',
-  'domReady',
+    'require',
+    'jquery',
+    'angular',
+    'domReady',
 
-  'bootstrap',
-  'app',
-  'appConfig',
-  'modules-includes'
-], function(require, $, ng, domReady) {
-  'use strict';
+    //'pace',
+    'bootstrap',
+    'app',
+    'includes'
+], function (require, $, ng, domReady, pace) {
+    'use strict';
 
-  domReady(function(document) {
-    ng.bootstrap(document, ['app']);
-    ng.resumeBootstrap();
-  });
+    //pace.start({
+    //    restartOnRequestAfter: true
+    //});
+
+    domReady(function (document) {
+        ng.bootstrap(document, ['app']);
+        ng.resumeBootstrap();
+    });
 });

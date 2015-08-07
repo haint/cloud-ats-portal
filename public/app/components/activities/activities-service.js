@@ -1,44 +1,45 @@
-define(['layout/module'], function(app) {
-  "use strict";
+define(['app'], function(app){
+    "use strict";
 
-  return app.registerFactory('activityService', ['$http', '$log', function($http, $log) {
+	    return app.factory('activityService', function($http,$log) {
 
-    function getActivities(callback) {
+		function getActivities(callback){
 
-      $http.get('api/activities/activity.json').success(function(data) {
-        
-        callback(data);
+			$http.get('api/activities/activity.json').success(function(data){
 
-      }).error(function() {
-        $log.log('Error');
-        callback([]);
-      });
+				callback(data);
+					
+			}).error(function(){
 
-    }
+				$log.log('Error');
+				callback([]);
 
-    function getActivitiesByType(type, callback) {
+			});
 
-      $http.get('api/activities/activity-' + type + '.json').success(function(data) {
+		}
 
-        callback(data);
+		function getActivitiesByType(type, callback){
 
-      }).error(function() {
+			$http.get('api/activities/activity-' + type + '.json').success(function(data){
 
-        $log.log('Error');
-        callback([]);
+				callback(data);
+					
+			}).error(function(){
 
-      });
+				$log.log('Error');
+				callback([]);
 
-    }
+			});
 
-    return {
-      get: function(callback) {
-        getActivities(callback);
-      },
-      getbytype: function(type, callback) {
-        getActivitiesByType(type, callback);
-      }
-    }
-
-  }]);
+		}
+		
+		return{
+			get:function(callback){
+				getActivities(callback);
+			},
+			getbytype:function(type,callback){
+				getActivitiesByType(type, callback);
+			}
+		}
+	})
 })

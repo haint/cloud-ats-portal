@@ -1,60 +1,115 @@
 define([
+    // account
+    'auth/module',
+    'auth/models/User',
 
-  //services
+    //services
   'services/data-service',
   'services/user-service',
   'services/authentication-service',
   'services/performance-service',
-  'services/virtual-service',
-  'services/functional-service',
+    
+    // layout
 
-  //layout
+    'layout/module',
+    'layout/actions/minifyMenu',
+    'layout/actions/toggleMenu',
+    'layout/actions/fullScreen',
+    'layout/actions/resetWidgets',
+    'layout/actions/resetWidgets',
+    'layout/actions/searchMobile',
+// 'layout/directives/demo/demoStates',
+    'layout/directives/smartInclude',
+    'layout/directives/smartDeviceDetect',
+    'layout/directives/smartFastClick',
+    'layout/directives/smartLayout',
+//    'layout/directives/smartRouterAnimationWrap', //Break layout of Tabbar
+    'layout/directives/smartFitAppView',
+    'layout/directives/radioToggle',
+    'layout/directives/dismisser',
+    'layout/directives/smartMenu',
+    'layout/directives/bigBreadcrumbs',
+    'layout/directives/stateBreadcrumbs',
+    'layout/directives/smartPageTitle',
+    'layout/directives/hrefVoid',
+    'layout/service/SmartCss',
+    'modules/widgets/directives/widgetGrid',
+    'modules/widgets/directives/jarvisWidget',
 
-  'layout/module',
-  
-  'layout/directives/smart-include',
-  'layout/directives/smart-router-animation-wrap',
-  'layout/directives/smart-page-title',
-  'layout/directives/smart-device-detect',
-  'layout/directives/smart-fast-click',
-  'layout/directives/smart-layout',
-  'layout/service/smart-css',
-  'layout/directives/smart-fit-app-view',
-  'layout/directives/href-void',
-  'layout/directives/smart-context',
+     //fk
+    'fk/module',
+    
+    //peformance
+    'performance/module',
+    
+    //project
+    'projects/module',
 
-  //dashboard
-  'dashboard/module',
 
-  //console
-  'console/module',
+    // dashboard
+    'dashboard/module',
 
-  //fk
-  'fk/module',
 
-  //forms
-  // 'modules/forms/module',
+    //components
+    
+    'components/language/Language',
+    'components/language/languageSelector',
+    'components/language/language-controller',
 
-  'functional/module',
-  'performance/module',
-  'virtual/module',
+    'components/projects/Project',
+    'components/projects/recentProjects',
 
-  //account
-  'auth/module',
+    'components/activities/activities-controller',
+    'components/activities/activities-dropdown-toggle-directive',
+    'components/activities/activities-service',
 
-  //virtual
+    'components/shortcut/shortcut-directive',
 
-  //components
+    'components/calendar/module',
+    'components/calendar/models/CalendarEvent',
+    'components/calendar/directives/fullCalendar',
+    'components/calendar/directives/dragableEvent',
+    'components/calendar/controllers/CalendarCtrl',
 
-  //activities
+    'components/inbox/module',
+    'components/inbox/models/InboxConfig',
+    'components/inbox/models/InboxMessage',
 
-  //language
+    'components/todo/TodoCtrl',
+    'components/todo/models/Todo',
+    'components/todo/directives/todoList',
 
-  //todo
-  // 'components/todo/todo-container',
-  // 'components/todo/models/todo',
-  // 'components/todo/directives/todo-list',
+    // chat
+    'components/chat/module',
 
-], function() {
-  'use strict';
+    // graphs
+    //'modules/graphs/module',
+
+
+    // tables
+    'modules/tables/module',
+
+    // forms
+    'modules/forms/module',
+
+    // ui
+    'modules/ui/module',
+
+    // widgets
+    'modules/widgets/module',
+
+    // widgets
+    //'modules/maps/module',
+
+    // appViews
+    'modules/app-views/module',
+
+    // misc
+    'modules/misc/module',
+
+    // smartAdmin
+    'modules/smart-admin/module'
+
+], function () {
+    'use strict';
 });

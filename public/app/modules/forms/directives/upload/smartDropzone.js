@@ -1,4 +1,4 @@
-define(['functional/module', 'dropzone'], function (module) {
+define(['modules/forms/module', 'dropzone'], function (module) {
 
     'use strict';
 

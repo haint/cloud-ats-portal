@@ -8,7 +8,7 @@ define(['functional/module'], function(module) {
           formData.append('file',file);
           var request = {
             method: 'POST',
-            url: 'http://localhost:9000/api/v1/functional/upload',
+            url: 'http://localhost:8001/api/v1/functional/upload',
             headers: {
               'X-AUTH-TOKEN': $cookies.get('authToken'),
               'Content-Type': undefined

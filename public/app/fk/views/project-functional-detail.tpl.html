@@ -4,45 +4,47 @@
            <span class="col-sm-6 pull-right"> <a class="btn btn-primary">Edit</a> <a class="btn btn-default" ng-click="closeDetailPage();">Close</a> </span>
           </div>
         <div class="row project-detail-header">
-        <div class="col-sm-12">
-          <span class="id-test">{{project.projectId.substring(0,8)}}<span  data-js-prompt="&amp;#xe05b;" data-icon="&#xe05b;" aria-hidden="true" class="glyph-item mega"></span></span> <span style="padding-right:10px">Functional Test</span> <span class="buttonStatus" disabled="disabled">READY</span>
-          </div>
+            <div class="col-sm-12">
+                   <span class="proj-id">{{project.projectId.substring(0,8)}} </span>
+                   <span  data-js-prompt="&amp;#xe05b;" data-icon="&#xe05b;" aria-hidden="true" class="proj-type"></span>
+                   <span>Functional Test</span>
+                   <span class="label label-success" disabled="disabled">READY</span>
+            </div>
         </div>
-        <div class="row project-detail-name">
+        <div class="row proj-name">
           <article class="col-sm-12"> 
-            {{project.projectName}}
+            {{project.projectName}}When I go out, I lock every other one. I figure no matter how long somebody stands there picking the locks, they are always locking three.Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
           </article>
         </div>
-        <div class="row ">
-          <div class="col-md-6">
-         <table class="table project-detail-statistic" cellpadding="0" cellspacing="0">
-            <thead>
-              <tr>
-                <td>Test Suites</td>
-                <td>Test Cases</td>
-                <td>Last Running</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="info-details" ng-init="">{{project.suites.length}}</td>
-                <td class="info-details" ng-init="">{{project.totalCases}}</td>
-                <td>01/05/2015 22:30</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="row">
+          <div class="col-md-6 project-properties">
+                <div class='row'>
+                    <div class='col-sm-3'>
+                        <div class='blur-name'>Test Suites</div>
+                        <div class='statistic-number'>{{project.suites.length}}</div>
+                    </div>
+                    <div class='col-sm-3'>
+                        <div class='blur-name'>Test Cases</div>
+                        <div class='statistic-number'>{{project.totalCases}}</div>
+                    </div>
+                    <div class='col-sm-6'>
+                        <div class='blur-name'>Test Cases</div>
+                        <div class='statistic-number'>01/05/2015 22:30</div>
+                    </div>
+               </div>
           </div>
           <div class="col-md-6">
             <div class="execute-action-list">
-            <a class="btn btn-border-line btnViewLog">View Log</a>
-            <a class="btn btn-border-line btnRun">Run</a>
+            <a class="btn-border-line btnViewLog">View Log</a>
+            <a class="btn-border-line btnRun">Run</a>
             </div>
           </div>
         </div>
-        </div>
+    </div>
+       
         <!-- Report -->
-        <div class="row details-div">
-          <div >
+        <div class="row table-container">
+          <div class="col-md-12">
             <h3>Test Report</h3>
           <table class="table tbl-project-report">
             <thead>
@@ -58,7 +60,7 @@
             </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="report in project.reports">
+              <tr ng-repeat="i in [1,2,3,4,5] track by $index">
                 <td>6</td>
                 <td class="test-report"><a ng-click="redirectTo()">Test Execute Report</a></td>
                 <td>145</td>
@@ -68,7 +70,7 @@
                 <td>01/05/2015 22:30</td>
                 <td>Cloud-ATS</td>
               </tr>
-              <tr>
+              <tr ng-repeat="i in [1,2,3,4,5] track by $index">
                 <td>6</td>
                 <td class="test-report"><a ng-click="redirectTo()">Test Execute Report</a></td>
                 <td>145</td>
@@ -78,6 +80,7 @@
                 <td>01/05/2015 22:30</td>
                 <td>Cloud-ATS</td>
               </tr>
+                
             </tbody>
           </table>
           </div>

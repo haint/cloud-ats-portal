@@ -24,11 +24,11 @@ define([
 								'performance/directives/new-performance-test-wizard',
 								'performance/directives/wizard-samplers',
 								'modules/widgets/directives/widget-grid',
-                'modules/widgets/directives/jarvis-widget',
-                'modules/forms/directives/input/smart-uislider',
-                'modules/forms/directives/validate/smart-validate-form',
-                'modules/forms/directives/wizard/smart-wizard',
-                'modules/graphs/directives/inline/sparkline-container'
+                                'modules/widgets/directives/jarvis-widget',
+                                'modules/forms/directives/input/smart-uislider',
+                                'modules/forms/directives/validate/smart-validate-form',
+                                'modules/forms/directives/wizard/smart-wizard',
+                                'modules/graphs/directives/inline/sparkline-container'
 							])
 						}
 					}

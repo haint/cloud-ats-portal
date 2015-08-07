@@ -14,7 +14,7 @@ define(['fk/module'], function(module) {
 
         var request = {
           method: 'GET',
-          url: 'http://localhost:9000/api/v1/keyword/getTestsuites/'+projectId,
+          url: 'http://localhost:8001/api/v1/keyword/getTestsuites/'+projectId,
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken'),
             'X-SPACE': $cookies.get('space')
@@ -28,7 +28,7 @@ define(['fk/module'], function(module) {
       getListFunctionalProject: function (callback) {
         var request = {
           method: 'GET',
-          url: 'http://localhost:9000/api/v1/keyword/getListFuncProject',
+          url: 'http://localhost:8001/api/v1/keyword/getListFuncProject',
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken'),
             'X-SPACE': $cookies.get('space')
@@ -42,7 +42,7 @@ define(['fk/module'], function(module) {
       createKeywordProject: function (data, callback) {
         var request = {
           method: 'POST',
-          url: 'http://localhost:9000/api/v1/keyword/createKeywordProject',
+          url: 'http://localhost:8001/api/v1/keyword/createKeywordProject',
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken'),
             'X-SPACE': $cookies.get('space')
@@ -57,7 +57,7 @@ define(['fk/module'], function(module) {
       createTestSuite: function (data, callback) {
         var request = {
           method: 'POST',
-          url: 'http://localhost:9000/api/v1/keyword/createTestSuite',
+          url: 'http://localhost:8001/api/v1/keyword/createTestSuite',
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken'),
             'X-SPACE': $cookies.get('space')
@@ -72,7 +72,7 @@ define(['fk/module'], function(module) {
       runKeywordProject: function (data, callback) {
         var request = {
           method: 'POST',
-          url: 'http://localhost:9000/api/v1/keyword/runKeywordProject',
+          url: 'http://localhost:8001/api/v1/keyword/runKeywordProject',
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken'),
             'X-SPACE': $cookies.get('space')
@@ -87,7 +87,7 @@ define(['fk/module'], function(module) {
       removeTestSuite: function (suiteId, projectId, callback) {
         var request = {
           method: 'GET',
-          url: 'http://localhost:9000/api/v1/keyword/deleteTestSuite/'+suiteId+'/'+projectId,
+          url: 'http://localhost:8001/api/v1/keyword/deleteTestSuite/'+suiteId+'/'+projectId,
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken'),
             'X-SPACE': $cookies.get('space')
@@ -101,7 +101,7 @@ define(['fk/module'], function(module) {
       updateTestSuite: function (data, callback) {
         var request = {
           method: 'PUT',
-          url: 'http://localhost:9000/api/v1/keyword/updateTestSuite',
+          url: 'http://localhost:8001/api/v1/keyword/updateTestSuite',
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken'),
             'X-SPACE': $cookies.get('space')
@@ -113,18 +113,40 @@ define(['fk/module'], function(module) {
           callback(data);
         }).error(function(){});
       },
-      /*nambv2*/
-     newTestCase : function(projectId,cases,callback) {
+      addCustomKeyword : function(customKeyword,keywordProject, callback) {
+        console.log(customKeyword);
+        console.log(keywordProject);
         var request = {
           method: 'POST',
-          url: 'http://localhost:9000/api/v1/testcase',
+          url: 'http://localhost:8001/api/v1/addCustomKeyword',
+          headers: {
+            'X-AUTH-TOKEN': $cookies.get('authToken')
+          },
+          data: {
+            'customKeyword': customKeyword,
+            'keywordProject': keywordProject
+          }
+        };
+
+        $http(request).success(function(data,status) {
+          callback(data,status);
+        }).error(function(status) {
+          callback(status);
+        })
+      },
+
+      /*nambv2*/
+     newTestCase : function(cases,callback) {
+        console.log(cases);
+        var request = {
+          method: 'POST',
+          url: 'http://localhost:8001/api/v1/testcase',
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken'),
             'X-SPACE': $cookies.get('space')
           },
           data: {
-            'cases': cases,
-            'projectId':projectId
+            'cases': cases
           }
         };
         $http(request).success(function (data,status) {
@@ -134,10 +156,10 @@ define(['fk/module'], function(module) {
         })
       },
 
-      getListTestCase : function(projectId,callback) {
+      getListTestCase : function(callback) {
         var request = {
           method: 'GET',
-          url: 'http://localhost:9000/api/v1/getListTestCase/'+projectId,
+          url: 'http://localhost:8001/api/v1/getListTestCase',
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken')
           }
@@ -152,7 +174,7 @@ define(['fk/module'], function(module) {
       updateCase : function(cases,callback) {
         var request = {
           method: 'PUT',
-          url: 'http://localhost:9000/api/v1/updateCase',
+          url: 'http://localhost:8001/api/v1/updateCase',
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken')
           },
@@ -168,11 +190,11 @@ define(['fk/module'], function(module) {
         })
       },
 
-      removeCase : function(projectId,caseId,callback) {
+      removeCase : function(caseId,callback) {
         console.log(caseId);
         var request = {
           method: 'DELETE',
-          url: 'http://localhost:9000/api/v1/removeCase/'+ caseId+'/'+projectId,
+          url: 'http://localhost:8001/api/v1/removeCase/'+ caseId,
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken')
           }
@@ -185,10 +207,10 @@ define(['fk/module'], function(module) {
         })
       },
 
-      getCustomKeywords : function(projectID,callback) {
+      getCustomKeywords : function(tenant,space,projectID,callback) {
         var request = {
           method: 'GET',
-          url: 'http://localhost:9000/api/v1/getCustomKeywords/' +projectID,
+          url: 'http://localhost:8001/api/v1/getCustomKeywords/'+  tenant + '/' + space + '/' +projectID,
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken')
           }
@@ -207,7 +229,7 @@ define(['fk/module'], function(module) {
         console.log(projectId);
         var request = {
           method: 'POST',
-          url: 'http://localhost:9000/api/v1/addCustomKeyword',
+          url: 'http://localhost:8001/api/v1/addCustomKeyword',
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken')
           },
@@ -229,7 +251,7 @@ define(['fk/module'], function(module) {
         console.log(customKeyword);
         var request = {
           method: 'PUT',
-          url: 'http://localhost:9000/api/v1/updateCustomKeyword',
+          url: 'http://localhost:8001/api/v1/update',
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken')
           },
@@ -246,10 +268,10 @@ define(['fk/module'], function(module) {
         })
       },
 
-      removeCustomKeyword : function(customKeywordId,callback) {
+      removeCustomKeyword : function(projectID,customKeywordName,callback) {
         var request = {
           method: 'DELETE',
-          url: 'http://localhost:9000/api/v1/removeCustomKeyword/'+ customKeywordId,
+          url: 'http://localhost:8001/api/v1/removeCustomKeyword/'+ projectID+'/'+ customKeywordName,
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken')
           }
@@ -257,7 +279,7 @@ define(['fk/module'], function(module) {
 
         $http(request).success(function(data,status) {
           callback(data,status);
-        }).error(function(data,status) {
+        }).error(function(status) {
           callback(data,status);
         })
       }

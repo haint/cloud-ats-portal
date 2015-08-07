@@ -1,37 +1,45 @@
-define(['layout/module'], function(app) {
-  "use strict";
+define(['app'], function(app){
+    "use strict";
 
-  return app.registerController('LanguageCtrl', ['$scope', '$rootScope', '$log', 'Language',LanguageCtrl]);
+	    return app.controller("LanguagesCtrl", LanguagesCtrl);
 
-  function LanguageCtrl($scope, $rootScope, $log, Language) {
-    
-    $rootScope.lang = {};
+			function LanguagesCtrl($scope, $rootScope, $log, Language){
 
-    Language.getLanguages(function(data) {
-      
-      $rootScope.currentLanguage = data[0];
-      
-      $rootScope.languages = data;
-      
-      Language.getLang(data[0].key, function(data) {
-        $rootScope.lang = data;
-      });
+				$rootScope.lang = {};
+				
+				Language.getLanguages(function(data){
 
-      $scope.selectLanguage = function(language) {
-        $rootScope.currentLanguage = language;
-        Language.getLang(language.key, function(data) {
-          $rootScope.lang = data;
-        });
-      }
+                    $rootScope.currentLanguage = data[0];
 
-      $rootScope.getWord = function(key) {
-        if (angular.isDefined($rootScope.lang[key])) {
-          return $rootScope.lang[key];
-        } else {
-          return key;
-        }
-      }
+                    $rootScope.languages = data;
 
-    });
-  }
+                    Language.getLang(data[0].key,function(data){
+
+                    	$rootScope.lang = data;
+                    });
+
+                });
+
+				$scope.selectLanguage = function(language){
+                    $rootScope.currentLanguage = language;
+                    
+                    Language.getLang(language.key,function(data){
+
+                    	$rootScope.lang = data;
+                        
+                    });
+                }
+
+
+                $rootScope.getWord = function(key){
+                	if(angular.isDefined($rootScope.lang[key])){
+                		return $rootScope.lang[key];
+                	} 
+                	else {
+                		return key;
+                	}
+                }
+
+			}
+
 });

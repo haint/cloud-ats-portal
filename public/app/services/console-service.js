@@ -6,7 +6,7 @@ define(['console/module'], function(module) {
       build: function(callback) {
         var request = {
           method: 'GET',
-          url: 'http://localhost:9000/api/v1/keyword/build',
+          url: 'http://localhost:8001/api/v1/keyword/build',
           headers: {
             'X-AUTH-TOKEN': $cookies.get('authToken'),
             'X-SPACE': $cookies.get('space')
